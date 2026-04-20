@@ -28,7 +28,7 @@ const Origin = () => {
             </motion.h2>
 
             <motion.p variants={fadeUp} className="text-graphite/70 max-w-md text-base leading-relaxed">
-              Nossa raiz mineira está no sabor. Nossa diferença está na forma como transformamos isso em padrão, escala e marca.
+              A raiz está no sabor mineiro. A diferença está em como transformamos tradição em processo, processo em padrão, e padrão em marca.
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-col mt-4">
