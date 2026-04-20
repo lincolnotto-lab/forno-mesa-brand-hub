@@ -15,13 +15,16 @@ const CtaSection = () => {
   return (
     <section id="contato" ref={sectionRef} className="relative bg-bone min-h-[95svh] flex items-center overflow-hidden">
       <motion.div style={{ y: bgY }} className="absolute inset-0">
-        <img
-          src="/cta-bg.jpg"
-          alt=""
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
           aria-hidden="true"
           className="w-full h-[120%] object-cover opacity-[0.12]"
-          loading="lazy"
-        />
+        >
+          <source src="/__l5e/assets-v1/72ad1c73-4003-4624-8093-7ec8bb9b634a/cta-video.mp4" type="video/mp4" />
+        </video>
       </motion.div>
 
       <div className="relative z-10 max-w-[1100px] mx-auto px-6 md:px-10 lg:px-14 py-28 md:py-40 w-full">
