@@ -6,18 +6,16 @@ import Expansion from "@/components/Expansion";
 import CtaSection from "@/components/CtaSection";
 import Footer from "@/components/Footer";
 
-const Index = () => {
-  return (
-    <>
-      <Navbar />
-      <Hero />
-      <Origin />
-      <Product />
-      <Expansion />
-      <CtaSection />
-      <Footer />
-    </>
-  );
-};
+const Index = () => (
+  <main className="relative min-h-screen bg-bone text-graphite antialiased">
+    <Navbar />
+    <Hero />
+    <Origin />
+    <Product />
+    <Expansion />
+    <CtaSection />
+    <Footer />
+  </main>
+);
 
 export default Index;

@@ -1,54 +1,35 @@
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
-import { fadeUp, staggerContainer, viewportConfig, ease } from "@/lib/motion";
-
-const Counter = ({ value, suffix = "" }: { value: number; suffix?: string }) => {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-15%" });
-  const [display, setDisplay] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    const duration = 1400;
-    const start = performance.now();
-    const step = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplay(Math.round(eased * value));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [inView, value]);
-
-  const prefix = value > 100 ? "+ " : "";
-  return <span ref={ref}>{prefix}{display.toLocaleString("pt-BR")}{suffix}</span>;
-};
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { fadeUp, staggerContainer, viewportConfig } from "@/lib/motion";
+import { useReducedMotionSafe } from "@/hooks/useReducedMotionSafe";
 
 const metrics = [
-  { value: 2400, suffix: "", label: "Toneladas por ano" },
-  { value: 98.7, suffix: " %", label: "Consistência de lote", decimals: true },
-  { value: 12, suffix: "", label: "Estados atendidos" },
+  { label: "Produção", value: "Padronizada", subtitle: "Processo industrial controlado de ponta a ponta" },
+  { label: "Alcance", value: "Nacional", subtitle: "Atendimento a redes, padarias e food service" },
+  { label: "Entrega", value: "Consistente", subtitle: "Mesma especificação, lote após lote" },
 ];
 
 const Expansion = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const prefersReduced = useReducedMotionSafe();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
+  const bgY = useTransform(scrollYProgress, [0, 1], prefersReduced ? ["0%", "0%"] : ["0%", "12%"]);
 
   return (
-    <section id="operacao" ref={sectionRef} className="relative bg-ink min-h-[100svh] overflow-hidden flex items-center">
+    <section id="operacao" ref={sectionRef} className="relative bg-wine min-h-[100svh] overflow-hidden flex items-center">
       <motion.div style={{ y: bgY }} className="absolute inset-0">
         <img
           src="/factory.jpg"
-          alt="Fábrica"
-          className="w-full h-[120%] object-cover opacity-40"
+          alt="Forno & Mesa — linha de produção"
+          className="w-full h-[120%] object-cover"
           loading="lazy"
         />
       </motion.div>
-      <div className="absolute inset-0 bg-ink/60" />
+      <div className="absolute inset-0 bg-gradient-to-r from-wine via-wine/85 to-wine/20" />
+      <div className="absolute inset-0 w-1/2 left-0 bg-wine/40" />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14 py-28 md:py-40 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-6">
@@ -61,13 +42,13 @@ const Expansion = () => {
           >
             <motion.div variants={fadeUp} className="flex items-center gap-3">
               <span className="w-10 h-px bg-accent-red" />
-              <span className="eyebrow text-bone/50">04 — Operação</span>
+              <span className="eyebrow text-bone/50">Operação — 04</span>
             </motion.div>
 
             <motion.h2 variants={fadeUp} className="text-h2-section font-serif text-bone">
               Estrutura para crescer.
               <br />
-              <em className="italic">Capacidade para entregar.</em>
+              <span className="italic">Capacidade para entregar.</span>
             </motion.h2>
 
             <motion.p variants={fadeUp} className="text-bone/60 max-w-lg text-base leading-relaxed">
@@ -76,7 +57,7 @@ const Expansion = () => {
           </motion.div>
 
           <motion.div
-            variants={staggerContainer}
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.15 } } }}
             initial="hidden"
             whileInView="visible"
             viewport={viewportConfig}
@@ -86,16 +67,14 @@ const Expansion = () => {
               <motion.div
                 key={m.label}
                 variants={fadeUp}
-                className={`py-6 ${i < metrics.length - 1 ? "border-b border-bone/15" : ""}`}
+                className={`py-8 ${i > 0 ? "border-t border-bone/12" : ""}`}
               >
-                <div className="font-serif text-5xl md:text-6xl text-bone font-light tracking-tight">
-                  {m.decimals ? (
-                    <CounterDecimal value={m.value} />
-                  ) : (
-                    <Counter value={m.value} suffix={m.suffix} />
-                  )}
+                <span className="block w-10 h-px bg-accent-red mb-4" />
+                <span className="eyebrow text-bone/60">{m.label}</span>
+                <div className="font-serif text-5xl md:text-6xl text-bone font-light tracking-tight leading-[1.05] mt-2">
+                  {m.value}
                 </div>
-                <span className="eyebrow text-bone/40 mt-2 block">{m.label}</span>
+                <p className="text-sm text-bone/60 mt-2 max-w-xs">{m.subtitle}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -103,28 +82,6 @@ const Expansion = () => {
       </div>
     </section>
   );
-};
-
-const CounterDecimal = ({ value }: { value: number }) => {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-15%" });
-  const [display, setDisplay] = useState("0,0");
-
-  useEffect(() => {
-    if (!inView) return;
-    const duration = 1400;
-    const start = performance.now();
-    const step = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = eased * value;
-      setDisplay(current.toFixed(1).replace(".", ","));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [inView, value]);
-
-  return <span ref={ref}>{display} %</span>;
 };
 
 export default Expansion;
