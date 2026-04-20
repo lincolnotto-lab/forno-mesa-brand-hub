@@ -3,20 +3,22 @@ import { useRef } from "react";
 import { fadeUp, staggerContainer, clipRevealHorizontal, viewportConfig } from "@/lib/motion";
 import { useReducedMotionSafe } from "@/hooks/useReducedMotionSafe";
 
-const gridImages = [
-  { src: "/product-display.jpg", alt: "Forno & Mesa — exposição em balcão", span: "col-span-12 md:col-span-5" },
-  { src: "/product-packaging.jpg", alt: "Forno & Mesa — embalagem", span: "col-span-12 md:col-span-4 md:mt-24" },
-  { src: "/product-hand.jpg", alt: "Forno & Mesa — consumo", span: "col-span-12 md:col-span-3" },
+const MACRO_VIDEO = "/__l5e/assets-v1/86ded337-a443-4acb-8176-d71b40a03f0d/product-macro.mp4";
+
+const gridVideos = [
+  { src: "/__l5e/assets-v1/42f8d66d-4a5b-456e-8290-01c7fff4719d/product-display.mp4", alt: "Forno & Mesa — exposição em balcão", span: "col-span-12 md:col-span-5" },
+  { src: "/__l5e/assets-v1/238d86a8-d316-4646-9a9b-e0b20ca767e7/product-packaging.mp4", alt: "Forno & Mesa — embalagem", span: "col-span-12 md:col-span-4 md:mt-24" },
+  { src: "/__l5e/assets-v1/98c95cdf-2874-4b5c-8cbf-c4bd185a3458/product-hand.mp4", alt: "Forno & Mesa — consumo", span: "col-span-12 md:col-span-3" },
 ];
 
 const Product = () => {
-  const imageRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLDivElement>(null);
   const prefersReduced = useReducedMotionSafe();
   const { scrollYProgress } = useScroll({
-    target: imageRef,
+    target: videoRef,
     offset: ["start end", "end start"],
   });
-  const imageScale = useTransform(scrollYProgress, [0, 1], prefersReduced ? [1, 1] : [1, 1.04]);
+  const videoScale = useTransform(scrollYProgress, [0, 1], prefersReduced ? [1, 1] : [1, 1.04]);
 
   return (
     <section id="produto" className="bg-cream min-h-[110svh] py-20 md:py-32">
@@ -40,43 +42,46 @@ const Product = () => {
         </motion.div>
 
         <motion.div
-          ref={imageRef}
+          ref={videoRef}
           variants={clipRevealHorizontal}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
           className="overflow-hidden mb-6"
         >
-          <motion.img
-            style={{ scale: imageScale }}
-            src="/product-macro.jpg"
-            alt="Forno & Mesa — macro do pão de queijo"
-            className="w-full aspect-video object-cover"
-            loading="lazy"
-            width={1920}
-            height={1080}
-          />
+          <motion.div style={{ scale: videoScale }}>
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full aspect-video object-cover"
+            >
+              <source src={MACRO_VIDEO} type="video/mp4" />
+            </video>
+          </motion.div>
         </motion.div>
 
         <div className="grid grid-cols-12 gap-6">
-          {gridImages.map((img) => (
+          {gridVideos.map((vid) => (
             <motion.div
-              key={img.src}
+              key={vid.src}
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={viewportConfig}
-              className={`relative overflow-hidden group ${img.span}`}
+              className={`relative overflow-hidden group ${vid.span}`}
             >
-              <img
-                src={img.src}
-                alt={img.alt}
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
                 className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 style={{ transitionTimingFunction: "var(--ease-smooth)" }}
-                loading="lazy"
-                width={640}
-                height={480}
-              />
+              >
+                <source src={vid.src} type="video/mp4" />
+              </video>
               <div className="absolute bottom-0 left-0 right-0 h-px bg-accent-red scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" style={{ transitionTimingFunction: "var(--ease-smooth)" }} />
             </motion.div>
           ))}
