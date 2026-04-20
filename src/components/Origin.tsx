@@ -51,14 +51,15 @@ const Origin = () => {
             viewport={viewportConfig}
             className="lg:col-span-7 lg:col-start-7"
           >
-            <img
-              src="/origin.jpg"
-              alt="Forno & Mesa — detalhe de produto"
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
               className="w-full aspect-[4/5] object-cover"
-              loading="lazy"
-              width={960}
-              height={1200}
-            />
+            >
+              <source src="/__l5e/assets-v1/10c0dd9d-fb82-40a7-a4fc-309a2aa0394a/origin-video.mp4" type="video/mp4" />
+            </video>
           </motion.div>
         </div>
       </div>
