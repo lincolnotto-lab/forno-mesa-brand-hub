@@ -1,32 +1,40 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { fadeUp, staggerContainer, lineExpand, ease, viewportConfig } from "@/lib/motion";
+import { fadeUp, staggerContainer, lineExpand, viewportConfig } from "@/lib/motion";
+import { useReducedMotionSafe } from "@/hooks/useReducedMotionSafe";
 
 const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const prefersReduced = useReducedMotionSafe();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
 
-  const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-  const videoScale = useTransform(scrollYProgress, [0, 1], [1.04, 1.12]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-6%"]);
+  const videoY = useTransform(scrollYProgress, [0, 1], prefersReduced ? ["0%", "0%"] : ["0%", "18%"]);
+  const videoScale = useTransform(scrollYProgress, [0, 1], prefersReduced ? [1, 1] : [1.04, 1.12]);
+  const contentY = useTransform(scrollYProgress, [0, 1], prefersReduced ? ["0%", "0%"] : ["0%", "-6%"]);
   const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.3, 0.85]);
 
   return (
-    <section ref={sectionRef} className="relative h-[100svh] bg-ink overflow-hidden">
+    <section id="top" ref={sectionRef} className="relative h-[100svh] bg-ink overflow-hidden">
       <motion.div
         style={{ y: videoY, scale: videoScale }}
         className="absolute inset-0"
       >
-        <img
-          src="/hero-poster.jpg"
-          alt="Pão de queijo Forno & Mesa"
-          className="w-full h-full object-cover"
-          width={1920}
-          height={1080}
-        />
+        <video
+          className="h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/hero-poster.jpg"
+          preload="metadata"
+          aria-hidden="true"
+        >
+          <source src="/hero.webm" type="video/webm" />
+          <source src="/hero.mp4" type="video/mp4" />
+        </video>
       </motion.div>
 
       <motion.div
@@ -63,13 +71,13 @@ const Hero = () => {
 
           <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-2">
             <a
-              href="#origem"
-              className="group relative rounded-full border border-bone/70 px-8 py-3.5 overflow-hidden"
+              href="#marca"
+              className="group relative inline-block border border-bone/70 px-8 py-4 overflow-hidden"
             >
-              <span className="absolute inset-0 bg-bone translate-y-full group-hover:translate-y-0 transition-transform duration-500" style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }} />
-              <span className="relative z-10 eyebrow text-bone group-hover:text-ink transition-colors duration-500 flex items-center gap-2">
-                Conhecer a marca <span className="text-sm">→</span>
+              <span className="eyebrow text-bone group-hover:text-bone/80 transition-colors duration-500 flex items-center gap-2" style={{ transitionTimingFunction: "var(--ease-smooth)" }}>
+                Conhecer a marca <span className="inline-block transition-transform duration-500 group-hover:translate-x-1" style={{ transitionTimingFunction: "var(--ease-smooth)" }}>→</span>
               </span>
+              <span className="absolute bottom-0 left-0 w-full h-px bg-bone scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" style={{ transitionTimingFunction: "var(--ease-smooth)" }} />
             </a>
             <a href="#contato" className="flex items-center gap-2 group">
               <span className="w-1.5 h-1.5 rounded-full bg-accent-red" />

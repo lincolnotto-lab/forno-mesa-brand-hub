@@ -9,7 +9,7 @@ const metadata = [
 
 const Origin = () => {
   return (
-    <section id="origem" className="bg-bone min-h-[95svh] py-28 md:py-40">
+    <section id="marca" className="bg-bone min-h-[95svh] py-28 md:py-40">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6 items-start">
           <motion.div
@@ -19,15 +19,12 @@ const Origin = () => {
             viewport={viewportConfig}
             className="lg:col-span-5 flex flex-col gap-8"
           >
-            <motion.div variants={fadeUp} className="flex items-center gap-3">
-              <span className="w-10 h-px bg-accent-red" />
-              <span className="eyebrow text-graphite/60">02 — Origem</span>
-            </motion.div>
+            <motion.span variants={fadeUp} className="eyebrow text-graphite/60">Origem</motion.span>
 
             <motion.h2 variants={fadeUp} className="text-h2-section font-serif text-graphite">
               Nascemos em Minas.
               <br />
-              <em className="italic">Crescemos com método.</em>
+              <span className="italic">Crescemos com método.</span>
             </motion.h2>
 
             <motion.p variants={fadeUp} className="text-graphite/70 max-w-md text-base leading-relaxed">
@@ -36,8 +33,11 @@ const Origin = () => {
 
             <motion.div variants={fadeUp} className="flex flex-col mt-4">
               {metadata.map((item, i) => (
-                <div key={item.label} className={`flex justify-between py-4 ${i < metadata.length - 1 ? "border-b border-graphite/15" : ""}`}>
-                  <span className="eyebrow text-graphite/50">{item.label}</span>
+                <div key={item.label} className={`flex justify-between items-center py-4 ${i < metadata.length - 1 ? "border-b border-graphite/15" : ""}`}>
+                  <span className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent-red" />
+                    <span className="eyebrow text-graphite/50">{item.label}</span>
+                  </span>
                   <span className="font-sans text-sm text-graphite">{item.value}</span>
                 </div>
               ))}
@@ -53,7 +53,7 @@ const Origin = () => {
           >
             <img
               src="/origin.jpg"
-              alt="Mãos trabalhando massa de pão de queijo"
+              alt="Forno & Mesa — detalhe de produto"
               className="w-full aspect-[4/5] object-cover"
               loading="lazy"
               width={960}

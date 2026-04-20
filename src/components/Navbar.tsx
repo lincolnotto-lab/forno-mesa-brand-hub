@@ -1,22 +1,74 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ease } from "@/lib/motion";
 
 const navLinks = [
-  { label: "Marca", href: "#origem" },
+  { label: "Marca", href: "#marca" },
   { label: "Produto", href: "#produto" },
   { label: "Operação", href: "#operacao" },
   { label: "Contato", href: "#contato" },
 ];
 
+const sectionThemes: Record<string, "light" | "dark"> = {
+  top: "dark",
+  marca: "light",
+  produto: "light",
+  operacao: "dark",
+  contato: "light",
+};
+
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [navTheme, setNavTheme] = useState<"light" | "dark">("dark");
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = Object.keys(sectionThemes);
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setNavTheme(sectionThemes[id]);
+            }
+          });
+        },
+        { rootMargin: "-45% 0px -55% 0px" }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
+
+  const textColor = navTheme === "dark" ? "text-bone" : "text-graphite";
+  const textMuted = navTheme === "dark" ? "text-bone/70" : "text-graphite/60";
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 mix-blend-difference">
+      <nav
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-400 ${
+          scrolled
+            ? `${navTheme === "dark" ? "bg-ink/80" : "bg-bone/80"} backdrop-blur-sm border-b ${navTheme === "dark" ? "border-bone/10" : "border-graphite/10"}`
+            : "bg-transparent"
+        }`}
+        style={{ transitionTimingFunction: "var(--ease-smooth)" }}
+      >
         <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14 py-5 flex items-center justify-between">
-          <a href="#" className="font-serif text-xl text-bone tracking-tight">
+          <a href="#top" className={`font-serif text-xl tracking-tight transition-colors duration-400 ${textColor}`}>
             Forno <span className="text-accent-red">&</span> Mesa
           </a>
 
@@ -25,7 +77,7 @@ const Navbar = () => {
               <a
                 key={link.label}
                 href={link.href}
-                className="eyebrow text-bone hover:opacity-60 transition-opacity duration-500"
+                className={`eyebrow transition-colors duration-500 ${textMuted} hover:${textColor}`}
               >
                 {link.label}
               </a>
@@ -34,7 +86,7 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-accent-red" />
-            <a href="#contato" className="eyebrow text-bone hover:opacity-60 transition-opacity duration-500">
+            <a href="#contato" className={`eyebrow transition-colors duration-500 ${textMuted}`}>
               Falar com vendas
             </a>
           </div>
@@ -44,8 +96,8 @@ const Navbar = () => {
             className="md:hidden flex flex-col gap-1.5"
             aria-label="Abrir menu"
           >
-            <span className="w-6 h-px bg-bone" />
-            <span className="w-6 h-px bg-bone" />
+            <span className={`w-6 h-px transition-colors duration-400 ${navTheme === "dark" ? "bg-bone" : "bg-graphite"}`} />
+            <span className={`w-6 h-px transition-colors duration-400 ${navTheme === "dark" ? "bg-bone" : "bg-graphite"}`} />
           </button>
         </div>
       </nav>

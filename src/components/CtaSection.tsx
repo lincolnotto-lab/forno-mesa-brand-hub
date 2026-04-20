@@ -1,14 +1,16 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { fadeUp, staggerContainer, viewportConfig } from "@/lib/motion";
+import { useReducedMotionSafe } from "@/hooks/useReducedMotionSafe";
 
 const CtaSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const prefersReduced = useReducedMotionSafe();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
+  const bgY = useTransform(scrollYProgress, [0, 1], prefersReduced ? ["0%", "0%"] : ["0%", "8%"]);
 
   return (
     <section id="contato" ref={sectionRef} className="relative bg-bone min-h-[95svh] flex items-center overflow-hidden">
@@ -16,49 +18,50 @@ const CtaSection = () => {
         <img
           src="/cta-bg.jpg"
           alt=""
+          aria-hidden="true"
           className="w-full h-[120%] object-cover opacity-[0.12]"
           loading="lazy"
         />
       </motion.div>
 
-      <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14 py-28 md:py-40 w-full">
+      <div className="relative z-10 max-w-[1100px] mx-auto px-6 md:px-10 lg:px-14 py-28 md:py-40 w-full">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
-          className="flex flex-col items-start lg:items-center gap-8"
+          className="flex flex-col items-start gap-8"
         >
-          <motion.span variants={fadeUp} className="eyebrow text-graphite/50">05 — Contato</motion.span>
+          <motion.span variants={fadeUp} className="eyebrow text-graphite/50">Conversa</motion.span>
 
-          <motion.h2 variants={fadeUp} className="text-h2-section font-serif text-graphite lg:text-center">
+          <motion.h2 variants={fadeUp} className="text-h2-section font-serif text-graphite">
             Para negócios que escolhem
             <br />
             <em className="italic text-accent-red">produto com padrão.</em>
           </motion.h2>
 
-          <motion.p variants={fadeUp} className="text-graphite/70 max-w-2xl text-base leading-relaxed lg:text-center">
+          <motion.p variants={fadeUp} className="text-graphite/70 max-w-2xl text-base leading-relaxed">
             Se você busca qualidade, consistência e uma marca que valoriza o seu ponto de venda, a conversa começa aqui.
           </motion.p>
 
-          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-4">
+          <motion.div variants={fadeUp} className="mt-4">
             <a
-              href="mailto:comercial@fornoemesa.com.br"
-              className="group relative rounded-full bg-graphite px-8 py-3.5 overflow-hidden"
+              href="mailto:comercial@fornoemesa.com.br?subject=Forno%20%26%20Mesa%20%E2%80%94%20Contato%20comercial"
+              className="group relative inline-block bg-graphite px-8 py-4 overflow-hidden transition-colors duration-500 hover:bg-ink"
+              style={{ transitionTimingFunction: "var(--ease-smooth)" }}
             >
-              <span className="absolute inset-0 bg-accent-red scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }} />
-              <span className="relative z-10 eyebrow text-bone flex items-center gap-2">
+              <span className="absolute bottom-0 left-0 w-full h-px bg-accent-red scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" style={{ transitionTimingFunction: "var(--ease-smooth)" }} />
+              <span className="eyebrow text-bone flex items-center gap-2">
                 Iniciar uma conversa
               </span>
             </a>
-            <a href="#" className="eyebrow text-graphite/60 hover:text-graphite transition-colors duration-500">
-              Baixar apresentação comercial →
-            </a>
           </motion.div>
 
-          <motion.p variants={fadeUp} className="eyebrow text-graphite/40 mt-6 lg:text-center">
-            comercial@fornoemesa.com.br · +55 31 9 0000-0000 · Contagem, MG
-          </motion.p>
+          <motion.div variants={fadeUp} className="flex w-full justify-start lg:justify-end mt-6">
+            <p className="eyebrow text-graphite/40">
+              comercial@fornoemesa.com.br · Contagem, MG · Resposta em até 1 dia útil
+            </p>
+          </motion.div>
         </motion.div>
       </div>
     </section>

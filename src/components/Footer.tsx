@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="bg-ink text-bone/70 py-16">
+    <footer className="bg-wine text-bone/70 py-16">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 pb-10 border-b border-bone/15">
           <div>
@@ -13,7 +13,7 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col gap-3">
-            <a href="#origem" className="eyebrow text-bone/50 hover:text-bone transition-colors duration-500">Marca</a>
+            <a href="#marca" className="eyebrow text-bone/50 hover:text-bone transition-colors duration-500">Marca</a>
             <a href="#produto" className="eyebrow text-bone/50 hover:text-bone transition-colors duration-500">Produto</a>
             <a href="#operacao" className="eyebrow text-bone/50 hover:text-bone transition-colors duration-500">Operação</a>
             <a href="#contato" className="eyebrow text-bone/50 hover:text-bone transition-colors duration-500">Contato</a>
