@@ -2,8 +2,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { fadeUp, staggerContainer, lineExpand, viewportConfig } from "@/lib/motion";
 import { useReducedMotionSafe } from "@/hooks/useReducedMotionSafe";
-// @ts-ignore
-import heroVideo from "/hero-video.mp4.asset.json";
+
+const HERO_VIDEO_URL = "/__l5e/assets-v1/efc5bc15-46f4-42a2-98ce-0990cc8ffe22/hero-video.mp4";
 
 const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
