@@ -21,12 +21,15 @@ const Expansion = () => {
   return (
     <section id="operacao" ref={sectionRef} className="relative bg-wine min-h-[100svh] overflow-hidden flex items-center">
       <motion.div style={{ y: bgY }} className="absolute inset-0">
-        <img
-          src="/factory.jpg"
-          alt="Forno & Mesa — linha de produção"
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
           className="w-full h-[120%] object-cover"
-          loading="lazy"
-        />
+        >
+          <source src="/__l5e/assets-v1/1a0a85f1-cd44-49b9-838b-1ed1bb13d8cb/expansion-video.mp4" type="video/mp4" />
+        </video>
       </motion.div>
       <div className="absolute inset-0 bg-gradient-to-r from-wine via-wine/85 to-wine/20" />
       <div className="absolute inset-0 w-1/2 left-0 bg-wine/40" />
