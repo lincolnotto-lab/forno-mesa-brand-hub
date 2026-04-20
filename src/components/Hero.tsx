@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { fadeUp, staggerContainer, lineExpand, viewportConfig } from "@/lib/motion";
 import { useReducedMotionSafe } from "@/hooks/useReducedMotionSafe";
+// @ts-ignore
 import heroVideo from "/hero-video.mp4.asset.json";
 
 const Hero = () => {
