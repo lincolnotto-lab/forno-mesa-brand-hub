@@ -34,7 +34,7 @@ const Hero = () => {
           preload="metadata"
           aria-hidden="true"
         >
-          <source src={heroVideo.url} type="video/mp4" />
+          <source src={HERO_VIDEO_URL} type="video/mp4" />
         </video>
       </motion.div>
 
