@@ -3,8 +3,8 @@ import { fadeUp, staggerContainer, clipRevealVertical, viewportConfig } from "@/
 
 const metadata = [
   { label: "Origem", value: "Minas Gerais" },
-  { label: "Método", value: "Produção padronizada" },
-  { label: "Posicionamento", value: "Marca premium B2B" },
+  { label: "Método", value: "Padrão, lote após lote" },
+  { label: "Atuação", value: "Padarias, cafés e redes" },
 ];
 
 const Origin = () => {
@@ -28,7 +28,7 @@ const Origin = () => {
             </motion.h2>
 
             <motion.p variants={fadeUp} className="text-graphite/70 max-w-md text-base leading-relaxed">
-              Nossa raiz mineira está no sabor. Nossa diferença está na forma como transformamos isso em padrão, escala e marca.
+              A raiz está no sabor mineiro. A diferença está em como transformamos tradição em processo, processo em padrão, e padrão em marca.
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-col mt-4">
