@@ -3,8 +3,8 @@ import { fadeUp, staggerContainer, clipRevealVertical, viewportConfig } from "@/
 
 const metadata = [
   { label: "Origem", value: "Minas Gerais" },
-  { label: "Método", value: "Produção padronizada" },
-  { label: "Posicionamento", value: "Marca premium B2B" },
+  { label: "Método", value: "Padrão, lote após lote" },
+  { label: "Atuação", value: "Padarias, cafés e redes" },
 ];
 
 const Origin = () => {
