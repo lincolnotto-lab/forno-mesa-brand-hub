@@ -2,6 +2,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { fadeUp, staggerContainer, lineExpand, viewportConfig } from "@/lib/motion";
 import { useReducedMotionSafe } from "@/hooks/useReducedMotionSafe";
+// @ts-ignore
+import heroVideo from "/hero-video.mp4.asset.json";
 
 const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -32,8 +34,7 @@ const Hero = () => {
           preload="metadata"
           aria-hidden="true"
         >
-          <source src="/hero.webm" type="video/webm" />
-          <source src="/hero.mp4" type="video/mp4" />
+          <source src={heroVideo.url} type="video/mp4" />
         </video>
       </motion.div>
 
