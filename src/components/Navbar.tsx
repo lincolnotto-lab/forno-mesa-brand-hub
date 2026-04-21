@@ -78,7 +78,7 @@ const Navbar = () => {
           <a
             href="#top"
             className={`font-serif tracking-tight transition-all duration-500 ${textColor} ${
-              scrolled ? "text-lg" : "text-xl"
+              scrolled ? "text-xl" : "text-2xl"
             }`}
             style={{ transitionTimingFunction: "var(--ease-smooth)" }}
           >

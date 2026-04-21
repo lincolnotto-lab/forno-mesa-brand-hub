@@ -27,7 +27,7 @@ const Hero = () => {
   const videoY = useTransform(scrollYProgress, [0, 1], prefersReduced ? ["0%", "0%"] : ["0%", "18%"]);
   const videoScale = useTransform(scrollYProgress, [0, 1], prefersReduced ? [1, 1] : [1.02, 1.1]);
   const contentY = useTransform(scrollYProgress, [0, 1], prefersReduced ? ["0%", "0%"] : ["0%", "-8%"]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.4, 0.92]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.55, 0.95]);
 
   return (
     <section id="top" ref={sectionRef} className="relative h-[100svh] bg-ink overflow-hidden">
@@ -55,7 +55,7 @@ const Hero = () => {
         style={{ opacity: overlayOpacity }}
         className="absolute inset-0 bg-ink"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-ink/40" />
 
       {/* Content */}
       <motion.div
