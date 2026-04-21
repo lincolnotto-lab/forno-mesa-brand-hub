@@ -16,7 +16,7 @@ const Hero = () => {
   const videoY = useTransform(scrollYProgress, [0, 1], prefersReduced ? ["0%", "0%"] : ["0%", "18%"]);
   const videoScale = useTransform(scrollYProgress, [0, 1], prefersReduced ? [1, 1] : [1.04, 1.12]);
   const contentY = useTransform(scrollYProgress, [0, 1], prefersReduced ? ["0%", "0%"] : ["0%", "-6%"]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.3, 0.85]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.35, 0.9]);
 
   return (
     <section id="top" ref={sectionRef} className="relative h-[100svh] bg-ink overflow-hidden">
@@ -52,60 +52,76 @@ const Hero = () => {
       >
         <div className="mb-auto" />
 
-        <div className="flex flex-col gap-6 md:gap-8 mb-12 md:mb-16">
-          <motion.div variants={fadeUp} className="flex items-center gap-3">
-            <span className="w-10 h-px bg-accent-red" />
-            <span className="eyebrow text-bone/70">Minas Gerais — Desde a origem</span>
-          </motion.div>
+        {/* Section number — editorial marker */}
+        <motion.span variants={fadeUp} className="eyebrow text-bone/30 mb-10">
+          01
+        </motion.span>
 
-          <motion.h1 variants={fadeUp} className="text-h1-hero font-serif text-bone font-light">
-            Pão de queijo mineiro
-            <br />
-            com <em className="text-accent-red italic">padrão de indústria</em>
-            <br />
-            e alma de marca.
-          </motion.h1>
+        <div className="flex gap-8 md:gap-10 mb-12 md:mb-16">
+          {/* Vertical editorial guide line */}
+          <motion.div
+            variants={lineExpand}
+            className="hidden md:block w-px bg-accent-red/40 self-stretch origin-top"
+            style={{ scaleY: 1 }}
+          />
 
-          <motion.p variants={fadeUp} className="text-bone/70 max-w-xl text-base md:text-lg font-light leading-relaxed">
-            Produzimos com consistência, presença e cuidado de ponta a ponta. Um produto que sustenta operação, percepção e recompra.
-          </motion.p>
+          <div className="flex flex-col gap-6 md:gap-8">
+            <motion.div variants={fadeUp} className="flex items-center gap-3">
+              <span className="w-10 h-px bg-accent-red" />
+              <span className="eyebrow text-bone/70">Minas Gerais — Desde a origem</span>
+            </motion.div>
 
-          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-2">
-            <a
-              href="#marca"
-              className="group relative inline-block border border-bone/70 px-8 py-4 overflow-hidden"
-            >
-              <span className="eyebrow text-bone group-hover:text-bone/80 transition-colors duration-500 flex items-center gap-2" style={{ transitionTimingFunction: "var(--ease-smooth)" }}>
-                Conhecer a marca <span className="inline-block transition-transform duration-500 group-hover:translate-x-1" style={{ transitionTimingFunction: "var(--ease-smooth)" }}>→</span>
-              </span>
-              <span className="absolute bottom-0 left-0 w-full h-px bg-bone scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" style={{ transitionTimingFunction: "var(--ease-smooth)" }} />
-            </a>
-            <a href="#contato" className="flex items-center gap-2 group">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent-red" />
-              <span className="eyebrow text-bone/70 group-hover:text-bone transition-colors duration-500">Falar com vendas</span>
-            </a>
-          </motion.div>
+            <motion.h1 variants={fadeUp} className="text-h1-hero font-serif text-bone font-light">
+              Pão de queijo mineiro
+              <br />
+              com <em className="text-accent-red italic">padrão de indústria</em>
+              <br />
+              e alma de marca.
+            </motion.h1>
+
+            <motion.p variants={fadeUp} className="text-bone/70 max-w-xl text-base md:text-lg font-light leading-relaxed">
+              Produzimos com consistência, presença e cuidado de ponta a ponta. Um produto que sustenta operação, percepção e recompra.
+            </motion.p>
+
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-2">
+              <a
+                href="#marca"
+                className="group relative inline-flex items-center gap-2"
+              >
+                <span className="eyebrow text-bone group-hover:text-bone/80 transition-colors duration-500" style={{ transitionTimingFunction: "var(--ease-smooth)" }}>
+                  Conhecer a marca
+                </span>
+                <span className="inline-block transition-transform duration-500 text-bone group-hover:translate-x-1" style={{ transitionTimingFunction: "var(--ease-smooth)" }}>→</span>
+                <span className="absolute -bottom-1 left-0 w-full h-px bg-bone/40 scale-x-100" />
+                <span className="absolute -bottom-1 left-0 w-full h-px bg-accent-red scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" style={{ transitionTimingFunction: "var(--ease-smooth)" }} />
+              </a>
+              <a href="#contato" className="flex items-center gap-2 group">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-red" />
+                <span className="eyebrow text-bone/70 group-hover:text-bone transition-colors duration-500">Falar com vendas</span>
+              </a>
+            </motion.div>
+          </div>
         </div>
 
-        <motion.div variants={fadeUp} className="flex items-end justify-between text-bone/40">
+        <motion.div variants={fadeUp} className="flex items-end justify-between text-bone/30">
           <div className="flex items-center gap-3">
             <motion.span
-              animate={{ y: [0, 6, 0] }}
-              transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
-              className="text-lg"
+              animate={{ y: [0, 4, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="text-sm"
             >
               ↓
             </motion.span>
-            <span className="eyebrow">Role para conhecer</span>
+            <span className="eyebrow text-[10px]">Role</span>
           </div>
-          <span className="hidden lg:block eyebrow">
-            01 — Manifesto · Consistência · Presença · Recompra
+          <span className="hidden lg:block eyebrow text-[10px]">
+            Manifesto · Consistência · Presença · Recompra
           </span>
         </motion.div>
 
         <motion.div
           variants={lineExpand}
-          className="absolute bottom-0 left-0 right-0 h-px bg-bone/25 origin-left"
+          className="absolute bottom-0 left-0 right-0 h-px bg-bone/20 origin-left"
         />
       </motion.div>
     </section>
