@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ease } from "@/lib/motion";
+import logoDark from "@/assets/logo-dark.png";
+import logoLight from "@/assets/logo-light.png";
 
 const navLinks = [
   { label: "Marca", href: "#marca", num: "01" },
@@ -77,12 +79,15 @@ const Navbar = () => {
         >
           <a
             href="#top"
-            className={`font-serif tracking-tight transition-all duration-500 ${textColor} ${
-              scrolled ? "text-xl" : "text-2xl"
-            }`}
+            className="transition-all duration-500"
             style={{ transitionTimingFunction: "var(--ease-smooth)" }}
           >
-            Forno <span className="text-accent-red">&</span> Mesa
+            <img
+              src={navTheme === "dark" ? logoLight : logoDark}
+              alt="Forno & Mesa"
+              className={`transition-all duration-500 ${scrolled ? "h-7" : "h-9"}`}
+              style={{ transitionTimingFunction: "var(--ease-smooth)" }}
+            />
           </a>
 
           <div className="hidden md:flex items-center gap-10">

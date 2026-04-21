@@ -1,5 +1,6 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, viewportConfig } from "@/lib/motion";
+import logoLight from "@/assets/logo-light.png";
 
 const Footer = () => {
   return (
@@ -17,9 +18,7 @@ const Footer = () => {
         >
           {/* Left — Logo large */}
           <motion.div variants={fadeUp} className="flex flex-col gap-4">
-            <span className="font-serif text-3xl md:text-4xl text-bone tracking-tight font-light">
-              Forno <span className="text-accent-red">&</span> Mesa
-            </span>
+            <img src={logoLight} alt="Forno & Mesa" className="h-10 md:h-12 w-auto" />
             <p className="text-sm text-bone/40 max-w-xs">
               Pão de queijo mineiro. Padrão de indústria.
             </p>
