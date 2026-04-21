@@ -85,7 +85,7 @@ const Navbar = () => {
             <img
               src={navTheme === "dark" ? logoLight : logoDark}
               alt="Forno & Mesa"
-              className={`transition-all duration-500 ${scrolled ? "h-7" : "h-9"}`}
+              className={`transition-all duration-500 ${scrolled ? "h-8 md:h-9" : "h-10 md:h-11"}`}
               style={{ transitionTimingFunction: "var(--ease-smooth)" }}
             />
           </a>
