@@ -13,7 +13,7 @@ export const staggerContainer = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.12,
+      staggerChildren: 0.15,
     },
   },
 };
@@ -34,6 +34,14 @@ export const clipRevealHorizontal = {
   },
 };
 
+export const clipRevealUp = {
+  hidden: { clipPath: "inset(0 0 100% 0)" },
+  visible: {
+    clipPath: "inset(0 0 0 0)",
+    transition: { duration: 1.1, ease },
+  },
+};
+
 export const lineExpand = {
   hidden: { scaleX: 0 },
   visible: {
@@ -44,5 +52,5 @@ export const lineExpand = {
 
 export const viewportConfig = {
   once: true,
-  margin: "-15%" as const,
+  margin: "-20%" as const,
 };

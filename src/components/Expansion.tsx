@@ -31,8 +31,10 @@ const Expansion = () => {
           <source src="/__l5e/assets-v1/1a0a85f1-cd44-49b9-838b-1ed1bb13d8cb/expansion-video.mp4" type="video/mp4" />
         </video>
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-r from-wine via-wine/85 to-wine/20" />
-      <div className="absolute inset-0 w-1/2 left-0 bg-wine/40" />
+      {/* Multi-layer overlay for depth */}
+      <div className="absolute inset-0 bg-gradient-to-r from-wine via-wine/90 to-wine/30" />
+      <div className="absolute inset-0 bg-gradient-to-b from-wine/40 via-transparent to-wine/60" />
+      <div className="absolute inset-0 w-1/2 left-0 bg-wine/30" />
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 lg:px-14 py-28 md:py-40 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-6">
@@ -45,7 +47,7 @@ const Expansion = () => {
           >
             <motion.div variants={fadeUp} className="flex items-center gap-3">
               <span className="w-10 h-px bg-accent-red" />
-              <span className="eyebrow text-bone/50">Operação — 04</span>
+              <span className="eyebrow text-bone/50">04 — Operação</span>
             </motion.div>
 
             <motion.h2 variants={fadeUp} className="text-h2-section font-serif text-bone">
@@ -60,7 +62,7 @@ const Expansion = () => {
           </motion.div>
 
           <motion.div
-            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.15 } } }}
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.18 } } }}
             initial="hidden"
             whileInView="visible"
             viewport={viewportConfig}
@@ -70,14 +72,17 @@ const Expansion = () => {
               <motion.div
                 key={m.label}
                 variants={fadeUp}
-                className={`py-8 ${i > 0 ? "border-t border-bone/12" : ""}`}
+                className={`py-8 relative ${i > 0 ? "border-t border-bone/10" : ""}`}
               >
-                <span className="block w-10 h-px bg-accent-red mb-4" />
-                <span className="eyebrow text-bone/60">{m.label}</span>
-                <div className="font-serif text-5xl md:text-6xl text-bone font-light tracking-tight leading-[1.05] mt-2">
-                  {m.value}
+                {/* Accent line on left */}
+                <span className="absolute left-0 top-8 bottom-8 w-px bg-accent-red/30" />
+                <div className="pl-5">
+                  <span className="eyebrow text-bone/50">{m.label}</span>
+                  <div className="font-serif text-5xl md:text-6xl lg:text-7xl text-bone font-light tracking-tight leading-[1] mt-3">
+                    {m.value}
+                  </div>
+                  <p className="text-sm text-bone/50 mt-3 max-w-xs">{m.subtitle}</p>
                 </div>
-                <p className="text-sm text-bone/60 mt-2 max-w-xs">{m.subtitle}</p>
               </motion.div>
             ))}
           </motion.div>
